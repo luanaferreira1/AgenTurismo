@@ -1,0 +1,34 @@
+﻿@page
+@model AgenTurismo.Pages.Pacotes.IndexModel
+
+<h2>Pacotes Turísticos</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Data Início</th>
+            <th>Preço</th>
+            <th>Capacidade</th>
+            <th>Destinos</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Pacotes)
+        {
+            <tr>
+                <td>@item.Titulo</td>
+                <td>@item.DataInicio.ToString("dd/MM/yyyy")</td>
+                <td>@item.Preco.ToString("C")</td>
+                <td>@item.Reservas.Count/@item.CapacidadeMaxima</td>
+                <td>@string.Join(", ", item.Destinos.Select(d => d.Nome))</td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-warning">Editar</a>
+                    <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detalhes</a>
+                    <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

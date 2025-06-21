@@ -1,0 +1,80 @@
+﻿@page
+@model AgenTurismo.Pages.Pacotes.CreatePacoteTuristicoModel
+@{
+    ViewData["Title"] = "Cadastrar Pacote";
+}
+
+<h1>Cadastrar Novo Pacote Turístico</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Input.Titulo" class="control-label"></label>
+                <input asp-for="Input.Titulo" class="form-control" />
+                <span asp-validation-for="Input.Titulo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.DataInicio" class="control-label"></label>
+                <input asp-for="Input.DataInicio" class="form-control" />
+                <span asp-validation-for="Input.DataInicio" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.CapacidadeMaxima" class="control-label"></label>
+                <input asp-for="Input.CapacidadeMaxima" class="form-control" />
+                <span asp-validation-for="Input.CapacidadeMaxima" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.Preco" class="control-label"></label>
+                <input asp-for="Input.Preco" class="form-control" type="number" step="0.01" min="0.01" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode === 44 || event.charCode === 46" />
+                <span asp-validation-for="Input.Preco" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Destinos</label>
+                <select asp-for="Input.DestinosSelecionados" class="form-control" multiple>
+                    @foreach (var destino in Model.DestinosDisponiveis)
+                    {
+                        <option value="@destino.Value">@destino.Text</option>
+                    }
+                </select>
+                <span asp-validation-for="Input.DestinosSelecionados" class="text-danger"></span>
+            </div>
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success mt-3" id="success-message">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Cadastrar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        setTimeout(function() {
+            var successMessage = document.getElementById('success-message');
+            if (successMessage) {
+                successMessage.remove();
+            }
+        }, 5000);
+
+        document.querySelector('input[asp-for="Input.Preco"]')?.addEventListener('input', function(e) {
+            this.value = this.value.replace(',', '.');
+        });
+    </script>
+}

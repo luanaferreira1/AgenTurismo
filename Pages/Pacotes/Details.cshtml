@@ -1,0 +1,46 @@
+﻿@page "{id:int}"
+@model AgenTurismo.Pages.Pacotes.DetailsModel
+@{
+    ViewData["Title"] = "Detalhes do Pacote";
+}
+
+<h1>Detalhes do Pacote Turístico</h1>
+
+<div>
+    <h4>@Model.PacoteTuristico.Titulo</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Data de Início
+        </dt>
+        <dd class="col-sm-10">
+            @Model.PacoteTuristico.DataInicio.ToShortDateString()
+        </dd>
+        <dt class="col-sm-2">
+            Capacidade Máxima
+        </dt>
+        <dd class="col-sm-10">
+            @Model.PacoteTuristico.CapacidadeMaxima
+        </dd>
+        <dt class="col-sm-2">
+            Preço
+        </dt>
+        <dd class="col-sm-10">
+            @Model.PacoteTuristico.Preco.ToString("C")
+        </dd>
+        <dt class="col-sm-2">
+            Destinos
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var destino in Model.PacoteTuristico.Destinos)
+            {
+                <span class="badge bg-primary">@destino.Nome, @destino.Pais</span>
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.PacoteTuristico.Id" class="btn btn-warning">Editar</a>
+    <a asp-page="./Delete" asp-route-id="@Model.PacoteTuristico.Id" class="btn btn-danger">Excluir</a>
+    <a asp-page="./Index" class="btn btn-secondary">Voltar para lista</a>
+</div>

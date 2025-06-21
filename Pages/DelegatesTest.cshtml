@@ -1,0 +1,65 @@
+﻿@page
+@model AgenTurismo.Pages.DelegatesTestModel
+@{
+    ViewData["Title"] = "Teste de Delegates";
+}
+
+<h1>Teste de Delegates e Events</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <h3>1. Cálculo de Desconto (10%)</h3>
+        <form method="post" asp-page-handler="CalcularDesconto">
+            <div class="form-group">
+                <label>Preço Original:</label>
+                <input asp-for="PrecoOriginal" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary">Calcular Desconto</button>
+            <div class="mt-2">
+                <strong>Preço com Desconto:</strong> @Model.PrecoComDesconto.ToString("C")
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-6">
+        <h3>2. Cálculo de Reserva</h3>
+        <form method="post" asp-page-handler="CalcularTotal">
+            <div class="form-group">
+                <label>Dias:</label>
+                <input asp-for="DiasReserva" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Preço Diária:</label>
+                <input asp-for="PrecoDiaria" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary">Calcular Total</button>
+            <div class="mt-2">
+                <strong>Total da Reserva:</strong> @Model.PrecoTotal.ToString("C")
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <h3>3. Multicast Delegate</h3>
+        <form method="post" asp-page-handler="LogMensagem">
+            <div class="form-group">
+                <label>Mensagem para Log:</label>
+                <input asp-for="MensagemLog" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary">Registrar Log</button>
+        </form>
+    </div>
+
+    <div class="col-md-6">
+        <h3>4. Evento de Capacidade</h3>
+        <form method="post" asp-page-handler="TestarCapacidade">
+            <button type="submit" class="btn btn-warning">Testar Evento de Capacidade</button>
+            <div class="mt-2">
+                <small>Verifique o console e o arquivo logs.txt</small>
+            </div>
+        </form>
+    </div>
+</div>
+

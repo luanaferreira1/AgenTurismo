@@ -1,0 +1,84 @@
+﻿@page
+@model AgenTurismo.Pages.Pacotes.EditModel
+
+@{
+    ViewData["Title"] = "Editar";
+}
+
+<h1>Editar</h1>
+
+<h4>Pacote Turístico</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PacoteTuristico.Id" />
+
+            <div class="form-group">
+                <label asp-for="PacoteTuristico.Titulo" class="control-label"></label>
+                <input asp-for="PacoteTuristico.Titulo" class="form-control" />
+                <span asp-validation-for="PacoteTuristico.Titulo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Destinos</label>
+                <div class="col-md-offset-2 col-md-10">
+                    <table class="table">
+                        <tr>
+                            @{
+                                int cnt = 0;
+                                foreach (var destino in Model.AssignedDestinosList)
+                                {
+                                    if (cnt++ % 3 == 0)
+                                    {
+                                        @:</tr><tr>
+                                    }
+                                    @:<td>
+                                        <input type="checkbox"
+                                               name="selectedDestinos"
+                                               value="@destino.DestinoID"
+                                               @(Html.Raw(destino.Assigned ? "checked=\"checked\"" : "")) />
+                                        @destino.Nome
+                                    @:</td>
+                                }
+                                @:</tr>
+                            }
+                    </table>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PacoteTuristico.DataInicio" class="control-label"></label>
+                <input asp-for="PacoteTuristico.DataInicio" class="form-control" />
+                <span asp-validation-for="PacoteTuristico.DataInicio" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PacoteTuristico.Preco" class="control-label"></label>
+                <input asp-for="PacoteTuristico.Preco" class="form-control" />
+                <span asp-validation-for="PacoteTuristico.Preco" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PacoteTuristico.CapacidadeMaxima" class="control-label"></label>
+                <input asp-for="PacoteTuristico.CapacidadeMaxima" class="form-control" />
+                <span asp-validation-for="PacoteTuristico.CapacidadeMaxima" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Voltar para a Lista</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
